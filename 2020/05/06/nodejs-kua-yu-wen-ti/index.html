@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Hello World, 米西米西">
+    <meta name="keywords" content="nodejs跨域问题, 米西米西">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Hello World | 米西米西</title>
+    <title>nodejs跨域问题 | 米西米西</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/12.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/4.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Hello World</h1>
+                    <h1 class="description center-align post-title">nodejs跨域问题</h1>
                 </div>
             </div>
         </div>
@@ -442,21 +442,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-05
+                    2020-05-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-05
+                    2020-05-06
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    73
+                    597
                 </div>
                 
 
@@ -468,16 +468,55 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="noopener">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="noopener">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="noopener">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="noopener">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><pre class=" language-bash"><code class="language-bash">$ hexo new <span class="token string">"My New Post"</span></code></pre>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="noopener">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><pre class=" language-bash"><code class="language-bash">$ hexo server</code></pre>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="noopener">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><pre class=" language-bash"><code class="language-bash">$ hexo generate</code></pre>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="noopener">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><pre class=" language-bash"><code class="language-bash">$ hexo deploy</code></pre>
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html" target="_blank" rel="noopener">Deployment</a></p>
+                <p>跨域：我们在开发中从一个服务器访问另一个服务器时，只要url中有以下其中一个不一样时就会发生跨域问题，这是浏览器的安全机制造成的，也被成为同源问题<br>    1.协议不同<br>    2.域名不同<br>    3.端口号不同<br>如何解决这种问题呢，以下我们在nodejs中利用CORS来处理跨域问题</p>
+<p>但我们用ajax去请求数据发生跨域时，用nodejs在后台写一个服务器代理</p>
+<p>首先是ajax请求时先去访问我们服务器代理，而不是访问你的最终的目标地址</p>
+<pre><code>    $.post(&#39;服务器代理地址&#39;, {
 
+          url:
+
+            &#39;目标地址&#39;,
+
+        }).then(function(res) {
+
+          console.log(res);//返回的数据
+
+        });</code></pre><p>然后在服务器代理中利用CORS解决跨域问题</p>
+<pre><code>
+//这个文件就是一个单独的专门用来做服务器代理解决跨域的，你只要运行这个文件将这个服务器打开就行了
+//若遇到跨域访问获取数据时先访问这个服务器地址就行
+const express = require(&quot;express&quot;);
+const cors = require(&quot;cors&quot;);
+const { get } = require(&quot;axios&quot;).default; //利用axois发送个网络请求
+const app = express();
+app.use(cors()); //就这一部就已经解决了跨域
+//如果访问的是本地服务器，现在这步就相当于已经解决了跨域问题
+//如果访问其他地址的服务器，那么此处就相当于一个服务器代理，解决跨域问题
+
+app.use(express.json());
+app.use(express.urlencoded());
+
+//服务器的代理请求地址
+app.post(&quot;/proxy&quot;, async(req, res) =&gt; {
+    const result = await get(req.body.url); //这里相当于发了一个网络请求，这不存在跨域，就像你在浏览器中直接输入请求的地址一样
+    res.json({
+        code: 1,
+        info: result.data,//axios请求的数据放在返回数据的data属性中
+    });
+});
+
+app.listen(3003, () =&gt; {
+    console.log(&quot;本地代理服务器运行在3003端口&quot;);
+});
+</code></pre><p>或者在nodejs中直接使用以下代码，解决跨域问题</p>
+<pre><code>router.all(&#39;*&#39;,function(req,res,next){
+  res.header(&#39;Access-Control-Allow-Origin&#39;,&quot;*&quot;);
+  res.header(&#39;Access-Control-Allow-Methods&#39;,&quot;PUT,GET,POST,DELETE,OPTIONS&quot;);
+  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;X-Requested-With&quot;);
+  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;Content-Type&quot;);
+  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;mytoken&quot;);
+  next();
+})</code></pre>
             </div>
             <hr/>
 
@@ -502,7 +541,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://cxj660.github.io/2020/05/05/hello-world/">http://cxj660.github.io/2020/05/05/hello-world/</a>
+                    <a href="http://cxj660.github.io/2020/05/06/nodejs-kua-yu-wen-ti/">http://cxj660.github.io/2020/05/06/nodejs-kua-yu-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -705,9 +744,10 @@
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
                 <a href="/2020/05/06/nodejs-kua-yu-wen-ti/">
                     <div class="card-image">
@@ -725,9 +765,9 @@
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-06
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-06
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-user fa-fw"></i>
@@ -736,6 +776,7 @@
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -743,7 +784,7 @@
         
         <div class="article col s12 m6" data-aos="fade-up">
             <div class="article-badge right-badge text-color">
-                本篇&nbsp;<i class="far fa-dot-circle"></i>
+                下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
                 <a href="/2020/05/05/hello-world/">
@@ -773,7 +814,6 @@
                         </span>
                     </div>
                 </div>
-
                 
             </div>
         </div>
