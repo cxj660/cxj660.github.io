@@ -23,25 +23,6 @@
     
     
     <entry>
-      <title>nodejs跨域问题</title>
-      <link href="/2020/05/21/nodejs-kua-yu-wen-ti/"/>
-      <url>/2020/05/21/nodejs-kua-yu-wen-ti/</url>
-      
-        <content type="html"><![CDATA[<p><strong>跨域：</strong><br>&ensp; 我们在开发中从一个服务器访问另一个服务器时，只要url中有以下其中一个不一样时就会发生跨域问题，这是浏览器的安全机制造成的，也被成为同源问题</p><ol><li>协议不同</li><li>域名不同</li><li>端口号不同</li></ol><p>如何解决这种问题呢，以下我们在nodejs中利用CORS来处理跨域问题</p><p>但我们用ajax去请求数据发生跨域时，用nodejs在后台写一个服务器代理</p><p>首先是ajax请求时先去访问我们服务器代理，而不是访问你的最终的目标地址</p><pre><code>    $.post(&#39;服务器代理地址&#39;, {          url:            &#39;目标地址&#39;,        }).then(function(res) {          console.log(res);//返回的数据        });</code></pre><p>然后在服务器代理中利用CORS解决跨域问题</p><pre><code>//这个文件就是一个单独的专门用来做服务器代理解决跨域的，你只要运行这个文件将这个服务器打开就行了//若遇到跨域访问获取数据时先访问这个服务器地址就行const express = require(&quot;express&quot;);const cors = require(&quot;cors&quot;);const { get } = require(&quot;axios&quot;).default; //利用axois发送个网络请求const app = express();app.use(cors()); //就这一部就已经解决了跨域//如果访问的是本地服务器，现在这步就相当于已经解决了跨域问题//如果访问其他地址的服务器，那么此处就相当于一个服务器代理，解决跨域问题app.use(express.json());app.use(express.urlencoded());//服务器的代理请求地址app.post(&quot;/proxy&quot;, async(req, res) =&gt; {    const result = await get(req.body.url); //这里相当于发了一个网络请求，这不存在跨域，就像你在浏览器中直接输入请求的地址一样    res.json({        code: 1,        info: result.data,//axios请求的数据放在返回数据的data属性中    });});app.listen(3003, () =&gt; {    console.log(&quot;本地代理服务器运行在3003端口&quot;);});</code></pre><p>或者在nodejs中直接使用以下代码，解决跨域问题</p><pre><code>router.all(&#39;*&#39;,function(req,res,next){  res.header(&#39;Access-Control-Allow-Origin&#39;,&quot;*&quot;);  res.header(&#39;Access-Control-Allow-Methods&#39;,&quot;PUT,GET,POST,DELETE,OPTIONS&quot;);  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;X-Requested-With&quot;);  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;Content-Type&quot;);  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;mytoken&quot;);  next();})</code></pre>]]></content>
-      
-      
-      <categories>
-          
-          <category> NODE </category>
-          
-      </categories>
-      
-      
-    </entry>
-    
-    
-    
-    <entry>
       <title>Markdown基本语法</title>
       <link href="/2020/05/21/markdown-de-ji-ben-yu-fa/"/>
       <url>/2020/05/21/markdown-de-ji-ben-yu-fa/</url>
@@ -52,6 +33,25 @@
       <categories>
           
           <category> MD </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>nodejs跨域问题</title>
+      <link href="/2020/05/21/nodejs-kua-yu-wen-ti/"/>
+      <url>/2020/05/21/nodejs-kua-yu-wen-ti/</url>
+      
+        <content type="html"><![CDATA[<p><strong>跨域：</strong><br>&ensp; 我们在开发中从一个服务器访问另一个服务器时，只要url中有以下其中一个不一样时就会发生跨域问题，这是浏览器的安全机制造成的，也被成为同源问题</p><ol><li>协议不同</li><li>域名不同</li><li>端口号不同</li></ol><p>如何解决这种问题呢，以下我们在nodejs中利用CORS来处理跨域问题</p><p>但我们用ajax去请求数据发生跨域时，用nodejs在后台写一个服务器代理</p><p>首先是ajax请求时先去访问我们服务器代理，而不是访问你的最终的目标地址</p><pre><code>    $.post(&#39;服务器代理地址&#39;, {          url:            &#39;目标地址&#39;,        }).then(function(res) {          console.log(res);//返回的数据        });</code></pre><p>然后在服务器代理中利用CORS解决跨域问题</p><pre><code>//这个文件就是一个单独的专门用来做服务器代理解决跨域的，你只要运行这个文件将这个服务器打开就行了//若遇到跨域访问获取数据时先访问这个服务器地址就行const express = require(&quot;express&quot;);const cors = require(&quot;cors&quot;);const { get } = require(&quot;axios&quot;).default; //利用axois发送个网络请求const app = express();app.use(cors()); //就这一部就已经解决了跨域//如果访问的是本地服务器，现在这步就相当于已经解决了跨域问题//如果访问其他地址的服务器，那么此处就相当于一个服务器代理，解决跨域问题app.use(express.json());app.use(express.urlencoded());//服务器的代理请求地址app.post(&quot;/proxy&quot;, async(req, res) =&gt; {    const result = await get(req.body.url); //这里相当于发了一个网络请求，这不存在跨域，就像你在浏览器中直接输入请求的地址一样    res.json({        code: 1,        info: result.data,//axios请求的数据放在返回数据的data属性中    });});app.listen(3003, () =&gt; {    console.log(&quot;本地代理服务器运行在3003端口&quot;);});</code></pre><p>或者在nodejs中直接使用以下代码，解决跨域问题</p><pre><code>router.all(&#39;*&#39;,function(req,res,next){  res.header(&#39;Access-Control-Allow-Origin&#39;,&quot;*&quot;);  res.header(&#39;Access-Control-Allow-Methods&#39;,&quot;PUT,GET,POST,DELETE,OPTIONS&quot;);  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;X-Requested-With&quot;);  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;Content-Type&quot;);  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;mytoken&quot;);  next();})</code></pre>]]></content>
+      
+      
+      <categories>
+          
+          <category> NODE </category>
           
       </categories>
       
