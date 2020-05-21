@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="Flex布局, 米西米西">
+    <meta name="keywords" content="nodejs跨域问题, 米西米西">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>Flex布局 | 米西米西</title>
+    <title>nodejs跨域问题 | 米西米西</title>
     <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/blogImg/vue.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/blogImg/node.png')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">Flex布局</h1>
+                    <h1 class="description center-align post-title">nodejs跨域问题</h1>
                 </div>
             </div>
         </div>
@@ -438,8 +438,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/HTML/" class="post-category">
-                                HTML
+                            <a href="/categories/nodejs/" class="post-category">
+                                nodejs
                             </a>
                         
                     </div>
@@ -451,21 +451,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-15
+                    2020-05-06
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-15
+                    2020-05-07
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.6k
+                    597
                 </div>
                 
 
@@ -477,117 +477,55 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h3 id="一、Flex-布局是什么？"><a href="#一、Flex-布局是什么？" class="headerlink" title="一、Flex 布局是什么？"></a>一、Flex 布局是什么？</h3><p>Flex 是 Flexible Box 的缩写，意为”弹性布局”，用来为盒状模型提供最大的灵活性。<br>任何一个容器都可以指定为 Flex 布局。</p>
-<pre><code>.box{
-  display: flex;
-}</code></pre><p>行内元素也可以使用 Flex 布局。</p>
-<pre><code>.box{
-  display: inline-flex;
-}</code></pre><p>Webkit 内核的浏览器，必须加上-webkit前缀。</p>
-<pre><code>.box{
-  display: -webkit-flex; /* Safari */
-  display: flex;
-}</code></pre><p>注意，设为 Flex 布局以后，子元素的float、clear和vertical-align属性将失效。</p>
-<h3 id="二、基本概念"><a href="#二、基本概念" class="headerlink" title="二、基本概念"></a>二、基本概念</h3><p>采用 Flex 布局的元素，称为 Flex 容器（flex container），简称”容器”。它的所有子元素自动成为容器成员，称为 Flex 项目（flex item），简称”项目”。</p>
-<p>容器默认存在两根轴：水平的主轴（main axis）和垂直的交叉轴（cross axis）。主轴的开始位置（与边框的交叉点）叫做main start，结束位置叫做main end；交叉轴的开始位置叫做cross start，结束位置叫做cross end。<br>项目默认沿主轴排列。单个项目占据的主轴空间叫做main size，占据的交叉轴空间叫做cross size。</p>
-<h3 id="三、容器的属性"><a href="#三、容器的属性" class="headerlink" title="三、容器的属性"></a>三、容器的属性</h3><p>以下6个属性设置在容器上。</p>
-<ol>
-<li>flex-direction            主轴方向</li>
-<li>flex-wrap                换行</li>
-<li>flex-flow                前两个的简写形式</li>
-<li>justify-content            主轴对齐方式</li>
-<li>align-items            交叉轴对其方式</li>
-<li>align-content            </li>
-</ol>
-<p><strong>3.1 flex-direction属性</strong><br>  &#8195; flex-direction属性决定主轴的方向（即项目的排列方向）。</p>
-<pre><code>.box {
-  flex-direction: row | row-reverse | column | column-reverse;
-}</code></pre><p>它可能有4个值。</p>
-<ol>
-<li>row（默认值）：主轴为水平方向，起点在左端。</li>
-<li>row-reverse：主轴为水平方向，起点在右端。</li>
-<li>column：主轴为垂直方向，起点在上沿。</li>
-<li>column-reverse：主轴为垂直方向，起点在下沿。</li>
-</ol>
-<p><strong>3.2 flex-wrap属性</strong><br>默认情况下，项目都排在一条线（又称”轴线”）上。flex-wrap属性定义，如果一条轴线排不下，如何换行。</p>
-<pre><code>.box{
-  flex-wrap: nowrap | wrap | wrap-reverse;
-}</code></pre><p>它可能取三个值。</p>
-<ol>
-<li>nowrap（默认）：不换行。</li>
-<li>wrap：换行，第一行在上方。</li>
-<li>wrap-reverse：换行，第一行在下方。</li>
-</ol>
-<p><strong>3.3 flex-flow</strong><br>flex-flow属性是flex-direction属性和flex-wrap属性的简写形式，默认值为row nowrap。</p>
-<pre><code>.box {
-  flex-flow: &lt;flex-direction&gt; || &lt;flex-wrap&gt;;
-}</code></pre><p><strong>3.4 justify-content属性</strong><br>justify-content属性定义了项目在主轴上的对齐方式。</p>
-<pre><code>.box {
-  justify-content: flex-start | flex-end | center | space-between | space-around;
-}</code></pre><p>它可能取5个值，具体对齐方式与轴的方向有关。下面假设主轴为从左到右。</p>
-<ol>
-<li>flex-start（默认值）：左对齐</li>
-<li>flex-end：右对齐</li>
-<li>center： 居中</li>
-<li>space-between：两端对齐，项目之间的间隔都相等。</li>
-<li>space-around：每个项目两侧的间隔相等。所以，项目之间的间隔比项目与边框的间隔大一倍。</li>
-</ol>
-<p><strong>3.5 align-items属性</strong><br>align-items属性定义项目在交叉轴上如何对齐。</p>
-<pre><code>.box {
-  align-items: flex-start | flex-end | center | baseline | stretch;
-}</code></pre><p>它可能取5个值。具体的对齐方式与交叉轴的方向有关，下面假设交叉轴从上到下。</p>
-<ol>
-<li>flex-start：交叉轴的起点对齐。</li>
-<li>flex-end：交叉轴的终点对齐。</li>
-<li>center：交叉轴的中点对齐。</li>
-<li>baseline: 项目的第一行文字的基线对齐。</li>
-<li>stretch（默认值）：如果项目未设置高度或设为auto，将占满整个容器的高度。</li>
-</ol>
-<p><strong>3.6 align-content属性</strong><br>align-content属性定义了多根轴线的对齐方式。如果项目只有一根轴线，该属性不起作用。</p>
-<pre><code>.box {
-  align-content: flex-start | flex-end | center | space-between | space-around | stretch;
-}</code></pre><p>该属性可能取6个值。</p>
-<ol>
-<li>flex-start：与交叉轴的起点对齐。</li>
-<li>flex-end：与交叉轴的终点对齐。</li>
-<li>center：与交叉轴的中点对齐。</li>
-<li>space-between：与交叉轴两端对齐，轴线之间的间隔平均分布。</li>
-<li>space-around：每根轴线两侧的间隔都相等。所以，轴线之间的间隔比轴线与边框的间隔大一倍。</li>
-<li>stretch（默认值）：轴线占满整个交叉轴。</li>
-</ol>
-<h3 id="四、项目的属性"><a href="#四、项目的属性" class="headerlink" title="四、项目的属性"></a>四、项目的属性</h3><p>以下6个属性设置在项目上。</p>
-<ol>
-<li>order</li>
-<li>flex-grow</li>
-<li>flex-shrink</li>
-<li>flex-basis</li>
-<li>flex</li>
-<li>align-self</li>
-</ol>
-<p><strong>4.1 order属性</strong><br>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0。</p>
-<pre><code>.item {
-  order: &lt;integer&gt;;
-}</code></pre><p><strong>4.2 flex-grow属性</strong><br>flex-grow属性定义项目的放大比例，默认为0，即如果存在剩余空间，也不放大。</p>
-<pre><code>.item {
-  flex-grow: &lt;number&gt;; /* default 0 */
-}</code></pre><p>如果所有项目的flex-grow属性都为1，则它们将等分剩余空间（如果有的话）。如果一个项目的flex-grow属性为2，其他项目都为1，则前者占据的剩余空间将比其他项多一倍。</p>
-<p><strong>4.3 flex-shrink属性</strong><br>flex-shrink属性定义了项目的缩小比例，默认为1，即如果空间不足，该项目将缩小。</p>
-<pre><code>.item {
-  flex-shrink: &lt;number&gt;; /* default 1 */
-}</code></pre><p>如果所有项目的flex-shrink属性都为1，当空间不足时，都将等比例缩小。如果一个项目的flex-shrink属性为0，其他项目都为1，则空间不足时，前者不缩小。<br>负值对该属性无效。</p>
-<p><strong>4.4 flex-basis属性</strong><br>flex-basis属性定义了在分配多余空间之前，项目占据的主轴空间（main size）。浏览器根据这个属性，计算主轴是否有多余空间。它的默认值为auto，即项目的本来大小。</p>
-<pre><code>.item {
-  flex-basis: &lt;length&gt; | auto; /* default auto */
-}</code></pre><p>它可以设为跟width或height属性一样的值（比如350px），则项目将占据固定空间。</p>
-<p><strong>4.5 flex属性</strong><br>flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。</p>
-<pre><code>.item {
-  flex: none | [ &lt;&#39;flex-grow&#39;&gt; &lt;&#39;flex-shrink&#39;&gt;? || &lt;&#39;flex-basis&#39;&gt; ]
-}</code></pre><p>该属性有两个快捷值：auto (1 1 auto) 和 none (0 0 auto)。<br>建议优先使用这个属性，而不是单独写三个分离的属性，因为浏览器会推算相关值。</p>
-<p><strong>4.6 align-self属性</strong><br>align-self属性允许单个项目有与其他项目不一样的对齐方式，可覆盖align-items属性。默认值为auto，表示继承父元素的align-items属性，如果没有父元素，则等同于stretch。</p>
-<pre><code>.item {
-  align-self: auto | flex-start | flex-end | center | baseline | stretch;
-}</code></pre><p>该属性可能取6个值，除了auto，其他都与align-items属性完全一致。<br>（完）</p>
+                <p>跨域：<br>我们在开发中从一个服务器访问另一个服务器时，只要url中有以下其中一个不一样时就会发生跨域问题，这是浏览器的安全机制造成的，也被成为同源问题<br>    1.协议不同<br>      2.域名不同<br>      3.端口号不同<br>如何解决这种问题呢，以下我们在nodejs中利用CORS来处理跨域问题</p>
+<p>但我们用ajax去请求数据发生跨域时，用nodejs在后台写一个服务器代理</p>
+<p>首先是ajax请求时先去访问我们服务器代理，而不是访问你的最终的目标地址</p>
+<pre><code>    $.post(&#39;服务器代理地址&#39;, {
 
+          url:
+
+            &#39;目标地址&#39;,
+
+        }).then(function(res) {
+
+          console.log(res);//返回的数据
+
+        });</code></pre><p>然后在服务器代理中利用CORS解决跨域问题</p>
+<pre><code>
+//这个文件就是一个单独的专门用来做服务器代理解决跨域的，你只要运行这个文件将这个服务器打开就行了
+//若遇到跨域访问获取数据时先访问这个服务器地址就行
+const express = require(&quot;express&quot;);
+const cors = require(&quot;cors&quot;);
+const { get } = require(&quot;axios&quot;).default; //利用axois发送个网络请求
+const app = express();
+app.use(cors()); //就这一部就已经解决了跨域
+//如果访问的是本地服务器，现在这步就相当于已经解决了跨域问题
+//如果访问其他地址的服务器，那么此处就相当于一个服务器代理，解决跨域问题
+
+app.use(express.json());
+app.use(express.urlencoded());
+
+//服务器的代理请求地址
+app.post(&quot;/proxy&quot;, async(req, res) =&gt; {
+    const result = await get(req.body.url); //这里相当于发了一个网络请求，这不存在跨域，就像你在浏览器中直接输入请求的地址一样
+    res.json({
+        code: 1,
+        info: result.data,//axios请求的数据放在返回数据的data属性中
+    });
+});
+
+app.listen(3003, () =&gt; {
+    console.log(&quot;本地代理服务器运行在3003端口&quot;);
+});
+</code></pre><p>或者在nodejs中直接使用以下代码，解决跨域问题</p>
+<pre><code>router.all(&#39;*&#39;,function(req,res,next){
+  res.header(&#39;Access-Control-Allow-Origin&#39;,&quot;*&quot;);
+  res.header(&#39;Access-Control-Allow-Methods&#39;,&quot;PUT,GET,POST,DELETE,OPTIONS&quot;);
+  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;X-Requested-With&quot;);
+  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;Content-Type&quot;);
+  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;mytoken&quot;);
+  next();
+})</code></pre>
             </div>
             <hr/>
 
@@ -612,7 +550,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://cxj660.github.io/2020/05/15/flex-dan-xing-he-mo-xing/">http://cxj660.github.io/2020/05/15/flex-dan-xing-he-mo-xing/</a>
+                    <a href="http://cxj660.github.io/2020/05/06/nodejs-kua-yu-wen-ti/">http://cxj660.github.io/2020/05/06/nodejs-kua-yu-wen-ti/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1082,33 +1020,32 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/05/15/markdown-de-ji-ben-yu-fa/">
+                <a href="/2020/05/09/vuex-ji-lu/">
                     <div class="card-image">
                         
-                        <img src="/medias/blogImg/node.jpg" class="responsive-img" alt="Markdown基本语法">
+                        <img src="/medias/blogImg/vue.ico" class="responsive-img" alt="vuex学习记录">
                         
-                        <span class="card-title">Markdown基本语法</span>
+                        <span class="card-title">vuex学习记录</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Markdown基本语法优点：
-
-因为是纯文本，所以只要支持Markdown的地方都能获得一样的编辑效果，可以让作者摆脱排版的困扰，专心写作。
-操作简单。比如:WYSIWYG编辑时标记个标题，先选中内容，再点击导航栏的标题按钮，选择几级标题
+                            组件之间共享数据的方式父向子传值：v-bind属性绑定子向父传值：v-on事件绑定兄弟组件之间共享数据：EvevuentBus
+Vuex是实现组件全局状态(数据)管理的一种机制，可以方便的实现组件之间数据的共享1.安装vuex依赖包
+npm
                         
                     </div>
                     <div class="publish-info">
                         <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-15
+                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-09
                         </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/MD/" class="post-category">
-                                    MD
+                            <a href="/categories/Vue/" class="post-category">
+                                    Vue
                                 </a>
                             
                             
@@ -1125,34 +1062,29 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/13/vuex-ji-lu/">
+                <a href="/2020/05/05/hello-world/">
                     <div class="card-image">
                         
-                        <img src="/medias/blogImg/vue.jpg" class="responsive-img" alt="vuex学习记录">
                         
-                        <span class="card-title">vuex学习记录</span>
+                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
+                        
+                        <span class="card-title">Hello World</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            组件之间共享数据的方式父向子传值：v-bind属性绑定子向父传值：v-on事件绑定兄弟组件之间共享数据：EvevuentBus
-Vuex是实现组件全局状态(数据)管理的一种机制，可以方便的实现组件之间数据的共享1.安装vuex依赖包
-npm
+                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-05
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-bookmark fa-fw icon-category"></i>
-                            
-                            <a href="/categories/VUE/" class="post-category">
-                                    VUE
-                                </a>
-                            
+                            <i class="fas fa-user fa-fw"></i>
+                            崔行建
                             
                         </span>
                     </div>

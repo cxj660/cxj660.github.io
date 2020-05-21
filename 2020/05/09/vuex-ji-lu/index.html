@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="nodejs跨域问题, 米西米西">
+    <meta name="keywords" content="vuex学习记录, 米西米西">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,8 +16,8 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>nodejs跨域问题 | 米西米西</title>
-    <link rel="icon" type="image/png" href="/medias/logo.png">
+    <title>vuex学习记录 | 米西米西</title>
+    <link rel="icon" type="image/png" href="/favicon.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
     <link rel="stylesheet" type="text/css" href="/libs/materialize/materialize.min.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/blogImg/node.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/blogImg/vue.ico')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">nodejs跨域问题</h1>
+                    <h1 class="description center-align post-title">vuex学习记录</h1>
                 </div>
             </div>
         </div>
@@ -438,8 +438,8 @@
                     <div class="post-cate">
                         <i class="fas fa-bookmark fa-fw icon-category"></i>
                         
-                            <a href="/categories/NODE/" class="post-category">
-                                NODE
+                            <a href="/categories/Vue/" class="post-category">
+                                Vue
                             </a>
                         
                     </div>
@@ -451,21 +451,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-13
+                    2020-05-09
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-15
+                    2020-05-09
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    595
+                    756
                 </div>
                 
 
@@ -477,61 +477,98 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <p><strong>跨域：</strong><br>&ensp; 我们在开发中从一个服务器访问另一个服务器时，只要url中有以下其中一个不一样时就会发生跨域问题，这是浏览器的安全机制造成的，也被成为同源问题</p>
-<ol>
-<li>协议不同</li>
-<li>域名不同</li>
-<li>端口号不同</li>
-</ol>
-<p>如何解决这种问题呢，以下我们在nodejs中利用CORS来处理跨域问题</p>
-<p>但我们用ajax去请求数据发生跨域时，用nodejs在后台写一个服务器代理</p>
-<p>首先是ajax请求时先去访问我们服务器代理，而不是访问你的最终的目标地址</p>
-<pre><code>    $.post(&#39;服务器代理地址&#39;, {
+                <h2 id="组件之间共享数据的方式"><a href="#组件之间共享数据的方式" class="headerlink" title="组件之间共享数据的方式"></a>组件之间共享数据的方式</h2><p>父向子传值：v-bind属性绑定<br>子向父传值：v-on事件绑定<br>兄弟组件之间共享数据：EvevuentBus</p>
+<h5 id="Vuex是实现组件全局状态-数据-管理的一种机制，可以方便的实现组件之间数据的共享"><a href="#Vuex是实现组件全局状态-数据-管理的一种机制，可以方便的实现组件之间数据的共享" class="headerlink" title="Vuex是实现组件全局状态(数据)管理的一种机制，可以方便的实现组件之间数据的共享"></a>Vuex是实现组件全局状态(数据)管理的一种机制，可以方便的实现组件之间数据的共享</h5><p>1.安装vuex依赖包</p>
+<pre><code>npm i vuex</code></pre><p>2.导入vuex包</p>
+<pre><code>import Vuex from &#39;vuex&#39;
+Vue.use(Vuex)</code></pre><p>3.创建store对象</p>
+<pre><code>//vuex核心属性
+const store = new Vuex.Store({
+  state: {
+  //state中就是存放全局共享的数据
+    count: 0
+  },
+  mutations: {},
+  actions: {},
+  modules: {}
+})</code></pre><p>成员列表：<br>state 存放状态<br>mutations state成员操作<br>getters 加工state成员给外界<br>actions 异步操作<br>modules 模块化状态管理</p>
+<p>获取state中的数据<br>1.第一种方式</p>
+<pre><code>this.$store.state.属性名</code></pre><p>2.第二种方式</p>
+<pre><code>//从vuex中 按需导入mapState函数
+import { mapState } from &#39;vuex&#39;</code></pre><p>通过刚才导入的mapState函数，将当前组件需要的全局数据，映射为当前组件的computed计算属性</p>
+<pre><code>computed:{
+    ...mapState([&#39;count&#39;])
+}</code></pre><h3 id="Mutation"><a href="#Mutation" class="headerlink" title="Mutation"></a>Mutation</h3><p>1.只能通过mutation变更State数据，不可以直接操作State中的数据<br>2.通过这种方式虽然操作起来稍微繁琐一些，但是可以集中监控所有数据的变化<br>3.不要在mutation函数中执行异步操作（使用Actions）</p>
+<pre><code>const store = new Vuex.Store({
+  state: {
+  //state中就是存放全局共享的数据
+    count: 0
+  },
+  mutations: {
+  //可以在触发mutation时传递参数
+    add(state,step){
+        //使count数据+1
+        state.count++
+        state.count += step
+    }
+  },
+  actions: {},
+  modules: {}
+})</code></pre><p>触发mutation</p>
+<pre><code>import { mapState, mapMutations } from &#39;vuex&#39;
+methods:{
+    //第二种方式
+    ...mutations([&#39;sub&#39;])
 
-          url:
-
-            &#39;目标地址&#39;,
-
-        }).then(function(res) {
-
-          console.log(res);//返回的数据
-
-        });</code></pre><p>然后在服务器代理中利用CORS解决跨域问题</p>
-<pre><code>
-//这个文件就是一个单独的专门用来做服务器代理解决跨域的，你只要运行这个文件将这个服务器打开就行了
-//若遇到跨域访问获取数据时先访问这个服务器地址就行
-const express = require(&quot;express&quot;);
-const cors = require(&quot;cors&quot;);
-const { get } = require(&quot;axios&quot;).default; //利用axois发送个网络请求
-const app = express();
-app.use(cors()); //就这一部就已经解决了跨域
-//如果访问的是本地服务器，现在这步就相当于已经解决了跨域问题
-//如果访问其他地址的服务器，那么此处就相当于一个服务器代理，解决跨域问题
-
-app.use(express.json());
-app.use(express.urlencoded());
-
-//服务器的代理请求地址
-app.post(&quot;/proxy&quot;, async(req, res) =&gt; {
-    const result = await get(req.body.url); //这里相当于发了一个网络请求，这不存在跨域，就像你在浏览器中直接输入请求的地址一样
-    res.json({
-        code: 1,
-        info: result.data,//axios请求的数据放在返回数据的data属性中
-    });
-});
-
-app.listen(3003, () =&gt; {
-    console.log(&quot;本地代理服务器运行在3003端口&quot;);
-});
-</code></pre><p>或者在nodejs中直接使用以下代码，解决跨域问题</p>
-<pre><code>router.all(&#39;*&#39;,function(req,res,next){
-  res.header(&#39;Access-Control-Allow-Origin&#39;,&quot;*&quot;);
-  res.header(&#39;Access-Control-Allow-Methods&#39;,&quot;PUT,GET,POST,DELETE,OPTIONS&quot;);
-  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;X-Requested-With&quot;);
-  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;Content-Type&quot;);
-  res.header(&#39;Access-Control-Allow-Headers&#39;,&quot;mytoken&quot;);
-  next();
-})</code></pre>
+    handle1(){
+        //触发mutation的第一种方式
+        //触发mutation携带参数3
+        //commit的作用就是调用某一函数
+        this.$store.commit(&#39;add&#39;,3)
+        this.sub()
+        }
+}</code></pre><h3 id="Action"><a href="#Action" class="headerlink" title="Action"></a>Action</h3><p>如果通过异步操作变更数据，必须通过Action,而不能使用Mutation,但是在Action中还是要触发Mutation的方式间接变更数据</p>
+<p>在action中，不能直接修改state中的数据；必须通过context.commit()触发某个mutations才行</p>
+<pre><code> //定义actions
+ actions: {
+    addAsync(context) {
+      setTimeout(() =&gt; {
+        context.commit(&#39;add&#39;)
+      }, 1000)
+    },
+    subAsync(context) {
+      setTimeout(() =&gt; {
+        context.commit(&#39;sub&#39;)
+      }, 1000)
+    }
+  },</code></pre><pre><code>//调用Action
+ btnHandler1() {
+     //触发action的第一种方式
+      this.$store.dispatch(&#39;subAsync&#39;)
+    }
+    //dispatch表示调用Action里面的函数
+    //！过程  加减组件页面调用Action里面的函数名称-》Action里面的异步函数调用mutations
+    //里面的函数，通过传过来的参数context.commit调用
+    //若想使用异步函数，必须在Action里面定义</code></pre><h3 id="Getter"><a href="#Getter" class="headerlink" title="Getter"></a>Getter</h3><p>Getter用于对Store中数据进行加工处理形成新的数据。<br>1.Getter用于对Store中数据进行加工处理形成新的数据。类似Vue的计算属性<br>2.Store中数据发生变化，Getter的数据也发生变化<br>3.getter不会修改数据，只会对已有的数据进行包装</p>
+<pre><code>//定义Getter
+const store = new Vuex.Store({
+    state:{
+        count:0
+    },
+    getters:{
+        showNum:state =&gt;{
+            return &#39;当前最新的数量是【&#39;+state.count+&#39;】&#39;
+        }
+    }
+})</code></pre><p>如何使用getter</p>
+<pre><code>//第一种方法
+{{$state.getters.showNum}}
+//第二种方法
+import {mapGetters} from &#39;vuex&#39;
+computed:{
+    ...mapGetters([&#39;showNum&#39;]})
+}
+{{showNum}}</code></pre>
             </div>
             <hr/>
 
@@ -556,7 +593,7 @@ app.listen(3003, () =&gt; {
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://cxj660.github.io/2020/05/13/nodejs-kua-yu-wen-ti/">http://cxj660.github.io/2020/05/13/nodejs-kua-yu-wen-ti/</a>
+                    <a href="http://cxj660.github.io/2020/05/09/vuex-ji-lu/">http://cxj660.github.io/2020/05/09/vuex-ji-lu/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1022,14 +1059,15 @@ app.listen(3003, () =&gt; {
 <article id="prenext-posts" class="prev-next articles">
     <div class="row article-row">
         
-        <div class="article col s12 m6" data-aos="fade-up">
+        <div class="article col s12 m6" data-aos="fade-up" data-aos="fade-up">
             <div class="article-badge left-badge text-color">
-                <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
+                <i class="far fa-dot-circle"></i>&nbsp;本篇
+            </div>
             <div class="card">
-                <a href="/2020/05/13/vuex-ji-lu/">
+                <a href="/2020/05/09/vuex-ji-lu/">
                     <div class="card-image">
                         
-                        <img src="/medias/blogImg/vue.jpg" class="responsive-img" alt="vuex学习记录">
+                        <img src="/medias/blogImg/vue.ico" class="responsive-img" alt="vuex学习记录">
                         
                         <span class="card-title">vuex学习记录</span>
                     </div>
@@ -1043,21 +1081,22 @@ npm
                         
                     </div>
                     <div class="publish-info">
-                        <span class="publish-date">
-                            <i class="far fa-clock fa-fw icon-date"></i>2020-05-13
-                        </span>
+                            <span class="publish-date">
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-09
+                            </span>
                         <span class="publish-author">
                             
                             <i class="fas fa-bookmark fa-fw icon-category"></i>
                             
-                            <a href="/categories/VUE/" class="post-category">
-                                    VUE
+                            <a href="/categories/Vue/" class="post-category">
+                                    Vue
                                 </a>
                             
                             
                         </span>
                     </div>
                 </div>
+
                 
             </div>
         </div>
@@ -1068,29 +1107,32 @@ npm
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/13/hello-world/">
+                <a href="/2020/05/06/nodejs-kua-yu-wen-ti/">
                     <div class="card-image">
                         
+                        <img src="/medias/blogImg/node.png" class="responsive-img" alt="nodejs跨域问题">
                         
-                        <img src="/medias/featureimages/12.jpg" class="responsive-img" alt="Hello World">
-                        
-                        <span class="card-title">Hello World</span>
+                        <span class="card-title">nodejs跨域问题</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            Welcome to Hexo! This is your very first post. Check documentation for more info. If you get any problems when using Hex
+                            跨域：我们在开发中从一个服务器访问另一个服务器时，只要url中有以下其中一个不一样时就会发生跨域问题，这是浏览器的安全机制造成的，也被成为同源问题    1.协议不同      2.域名不同      3.端口号不同如何解决这种问题呢，以下
                         
                     </div>
                     <div class="publish-info">
                             <span class="publish-date">
-                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-13
+                                <i class="far fa-clock fa-fw icon-date"></i>2020-05-06
                             </span>
                         <span class="publish-author">
                             
-                            <i class="fas fa-user fa-fw"></i>
-                            崔行建
+                            <i class="fas fa-bookmark fa-fw icon-category"></i>
+                            
+                            <a href="/categories/nodejs/" class="post-category">
+                                    nodejs
+                                </a>
+                            
                             
                         </span>
                     </div>
