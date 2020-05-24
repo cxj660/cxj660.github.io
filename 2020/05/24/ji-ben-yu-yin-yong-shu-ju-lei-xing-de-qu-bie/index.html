@@ -487,6 +487,7 @@
 　　console.log(a); // 10值</code></pre><p>　　上面，b获取的是a值得一份拷贝，虽然，两个变量的值相等，但是两个变量保存了两个不同的基本数据类型值。</p>
 <p>　　<strong>b只是保存了a复制的一个副本。所以，b的改变，对a没有影响。</strong></p>
 <p>　　下图演示了这种基本数据类型赋值的过程：</p>
+<p><img src="https://img-blog.csdnimg.cn/2020052415210460.bmp?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NDc2Nzc5,size_16,color_FFFFFF,t_70" alt="基本数据类型赋值的过程"></p>
 <h4 id="3、引用类型数据："><a href="#3、引用类型数据：" class="headerlink" title="3、引用类型数据："></a>3、引用类型数据：</h4><p>　　也就是对象类型Object type，比如：Object 、Array 、Function 、Data等。</p>
 <p>　　<strong>javascript的引用数据类型是保存在堆内存中的对象。</strong></p>
 <p>　　与其他语言的不同是，你不可以直接访问堆内存空间中的位置和操作堆内存空间。只能操作对象在栈内存中的引用地址。</p>
@@ -497,6 +498,7 @@
 　　console.log(obj1.name); // 我有名字了</code></pre><p>　　说明这两个引用数据类型指向了同一个堆内存对象。obj1赋值给onj2，实际上这个堆内存对象在栈内存的引用地址复制了一份给了obj2，</p>
 <p>　　但是实际上他们共同指向了同一个堆内存对象。实际上改变的是堆内存对象。</p>
 <p>　　下面我们来演示这个引用数据类型赋值过程：</p>
+<p><img src="https://img-blog.csdnimg.cn/20200524152104308.bmp?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NDc2Nzc5,size_16,color_FFFFFF,t_70" alt="引用数据类型赋值过程"></p>
 <h4 id="4、总结区别"><a href="#4、总结区别" class="headerlink" title="4、总结区别"></a>4、总结区别</h4><p>　　<strong>a 声明变量时不同的内存分配：</strong>　</p>
 <p>　　 1. <strong>原始值</strong>：存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。</p>
 <p>　　　　这是因为这些 原始类型占据的空间是固定的，所以可将他们存储在较小的内存区域 – 栈中。这样存储便于迅速查寻变量的值。</p>
