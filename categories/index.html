@@ -338,7 +338,7 @@
 
 <script>
     // 每天切换 banner 图.  Switch banner image every day.
-    $('.bg-cover').css('background-image', 'url(/medias/banner/4.jpg)');
+    $('.bg-cover').css('background-image', 'url(/medias/banner/0.jpg)');
 </script>
 
 
@@ -359,19 +359,37 @@
                 
                 
                 
-                <a href="/categories/MD/" title="MD: 1">
+                <a href="/categories/HTML/" title="HTML: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F9EBEA;">MD
+                            style="background-color: #F9EBEA;">HTML
                         <span class="tag-length">1</span>
                     </span>
                 </a>
                 
                 
-                <a href="/categories/HTML/" title="HTML: 1">
+                <a href="/categories/JS/" title="JS: 2">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #F5EEF8;">HTML
+                            style="background-color: #F5EEF8;">JS
+                        <span class="tag-length">2</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/NODE/" title="NODE: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #D5F5E3;">NODE
+                        <span class="tag-length">1</span>
+                    </span>
+                </a>
+                
+                
+                <a href="/categories/MD/" title="MD: 1">
+                    <span class="chip center-align waves-effect waves-light
+                             chip-default "
+                            style="background-color: #E8F8F5;">MD
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -380,16 +398,7 @@
                 <a href="/categories/VUE/" title="VUE: 1">
                     <span class="chip center-align waves-effect waves-light
                              chip-default "
-                            style="background-color: #D5F5E3;">VUE
-                        <span class="tag-length">1</span>
-                    </span>
-                </a>
-                
-                
-                <a href="/categories/NODE/" title="NODE: 1">
-                    <span class="chip center-align waves-effect waves-light
-                             chip-default "
-                            style="background-color: #E8F8F5;">NODE
+                            style="background-color: #FEF9E7;">VUE
                         <span class="tag-length">1</span>
                     </span>
                 </a>
@@ -437,7 +446,7 @@
                     color: '#3C4858'
                 }
             },
-            indicator: [{"name":"MD","max":2},{"name":"HTML","max":2},{"name":"VUE","max":2},{"name":"NODE","max":2}],
+            indicator: [{"name":"HTML","max":3},{"name":"JS","max":3},{"name":"NODE","max":3},{"name":"MD","max":3},{"name":"VUE","max":3}],
             nameGap: 5,
             center: ['50%','55%'],
             radius: '66%'
@@ -448,7 +457,7 @@
             itemStyle: {normal: {areaStyle: {type: 'default'}}},
             data : [
                 {
-                    value : [1,1,1,1],
+                    value : [1,2,1,1,1],
                     name : '文章分类数量'
                 }
             ]
