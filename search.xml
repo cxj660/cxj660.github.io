@@ -61,6 +61,25 @@
     
     
     <entry>
+      <title>JS中原型与原型链</title>
+      <link href="/2020/02/28/js-zhong-yuan-xing-yu-yuan-xing-lian/"/>
+      <url>/2020/02/28/js-zhong-yuan-xing-yu-yuan-xing-lian/</url>
+      
+        <content type="html"><![CDATA[<p>构造函数创建对象：</p><pre><code>function Person() {}var person = new Person();person.name = &#39;Kevin&#39;;console.log(person.name) // Kevin</code></pre><p>Person 就是一个构造函数，我们使用 new 创建了一个实例对象 person</p><h2 id="prototype"><a href="#prototype" class="headerlink" title="prototype"></a>prototype</h2><p>每个函数都有一个 prototype 属性<br>每一个JavaScript对象(null除外)在创建的时候就会与之关联另一个对象，这个对象就是我们所说的原型，每一个对象都会从原型”继承”属性。</p><pre><code>function Person() {}// 虽然写在注释里，但是你要注意：// prototype是函数才会有的属性Person.prototype.name = &#39;Kevin&#39;;var person1 = new Person();var person2 = new Person();console.log(person1.name) // Kevinconsole.log(person2.name) // Kevin</code></pre><p><img src="https://img-blog.csdnimg.cn/2020052814480599.png" alt="构造函数原型"></p><h2 id="proto"><a href="#proto" class="headerlink" title="proto"></a>proto</h2><p>每一个JavaScript对象(除了 null )都具有的一个属性，叫proto，这个属性会指向该对象的原型</p><pre><code>function Person() {}var person = new Person();console.log(person.__proto__ === Person.prototype); // true</code></pre><p><img src="https://img-blog.csdnimg.cn/20200528144918934.png" alt="构造函数实例与原型的关系"></p><h2 id="constructor-NaN"><a href="#constructor-NaN" class="headerlink" title="constructor"></a>constructor</h2><p>每个原型都有一个 constructor 属性指向关联的构造函数 实例原型指向构造函数</p><pre><code>function Person() {}console.log(Person === Person.prototype.constructor); // true</code></pre><p><img src="https://img-blog.csdnimg.cn/20200528145121967.png" alt=""></p><pre><code>function Person() {}var person = new Person();console.log(person.__proto__ == Person.prototype) // trueconsole.log(Person.prototype.constructor == Person) // true// 顺便学习一个ES5的方法,可以获得对象的原型console.log(Object.getPrototypeOf(person) === Person.prototype) // true</code></pre><h2 id="实例与原型"><a href="#实例与原型" class="headerlink" title="实例与原型"></a>实例与原型</h2><pre><code>function Person() {}Person.prototype.name = &#39;Kevin&#39;;var person = new Person();person.name = &#39;Daisy&#39;;console.log(person.name) // Daisydelete person.name;console.log(person.name) // Kevin</code></pre><p>在这个例子中，我们给实例对象 person 添加了 name 属性，当我们打印 person.name 的时候，结果自然为 Daisy。</p><p>但是当我们删除了 person 的 name 属性时，读取 person.name，从 person 对象中找不到 name 属性就会从 person 的原型也就是 person.proto ，也就是 Person.prototype中查找，幸运的是我们找到了 name 属性，结果为 Kevin。</p><h2 id="原型与原型"><a href="#原型与原型" class="headerlink" title="原型与原型"></a>原型与原型</h2><pre><code>var obj = new Object();obj.name = &#39;Kevin&#39;console.log(obj.name) // Kevin</code></pre><p><img src="https://img-blog.csdnimg.cn/20200528145202189.png" alt=""></p><h2 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h2><pre><code>console.log(Object.prototype.__proto__ === null) // true</code></pre><p><img src="https://img-blog.csdnimg.cn/20200528145227689.png" alt=""><br>JavaScript 默认并不会复制对象的属性，相反，JavaScript 只是在两个对象之间创建一个关联，这样，一个对象就可以通过委托访问另一个对象的属性和函数，所以与其叫继承，委托的说法反而更准确些</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JS </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>Markdown基本语法</title>
       <link href="/2020/01/12/markdown-de-ji-ben-yu-fa/"/>
       <url>/2020/01/12/markdown-de-ji-ben-yu-fa/</url>
