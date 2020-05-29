@@ -4,6 +4,44 @@
   
     
     <entry>
+      <title>JS四大数据类型检测</title>
+      <link href="/2020/05/29/js-zhong-de-si-da-shu-ju-lei-xing-jian-ce-fang-an/"/>
+      <url>/2020/05/29/js-zhong-de-si-da-shu-ju-lei-xing-jian-ce-fang-an/</url>
+      
+        <content type="html"><![CDATA[<p>NaN 的数据类型：not a number 。是数字类型但是不是数字<br>typeof NaN ===&gt;   number</p><h3 id="1-typeof"><a href="#1-typeof" class="headerlink" title="1.typeof"></a>1.typeof</h3><pre><code> console.log(typeof &quot;&quot;); console.log(typeof 1); console.log(typeof true); console.log(typeof null); console.log(typeof undefined); console.log(typeof []); console.log(typeof function(){}); console.log(typeof {});</code></pre><p>看看控制台输出什么</p><p>可以看到，typeof对于基本数据类型判断是没有问题的，但是遇到引用数据类型（如：Array）是不起作用的。</p><h3 id="2-instanceof"><a href="#2-instanceof" class="headerlink" title="2.instanceof"></a>2.instanceof</h3><pre><code> console.log(&quot;1&quot; instanceof String); console.log(1 instanceof Number); console.log(true instanceof Boolean); //            console.log(null instanceof Null); //            console.log(undefined instanceof Undefined); console.log([] instanceof Array); console.log(function(){} instanceof Function); console.log({} instanceof Object);</code></pre><p>暂且不考虑null和undefined（这两个比较特殊），看看控制台输出什么</p><p>可以看到前三个都是以对象字面量创建的基本数据类型，但是却不是所属类的实例，这个就有点怪了。后面三个是引用数据类型，可以得到正确的结果。如果我们通过new关键字去创建基本数据类型，你会发现，这时就会输出true, 如下:</p><p>接下再来说说为什么null和undefined为什么比较特殊，实际上按理来说，null的所属类就是Null，undefined就是Undefined，但事实并非如此：控制台输出如下结果：</p><p>l浏览器压根不认识这两货，直接报错。在第一个例子你可能已经发现了，typeof null的结果是object，typeof undefined的结果是undefined</p><p>尤其是null，其实这是js设计的一个败笔，<strong>早期准备更改null的类型为null，由于当时已经有大量网站使用了null，如果更改，将导致很多网站的逻辑出现漏洞问题，就没有更改过来，于是一直遗留到现在。作为学习者，我们只需要记住就好。</strong></p><h3 id="3-constructor"><a href="#3-constructor" class="headerlink" title="3.constructor"></a>3.constructor</h3><pre><code> console.log((&quot;1&quot;).constructor === String); console.log((1).constructor === Number); console.log((true).constructor === Boolean); //console.log((null).constructor === Null); //console.log((undefined).constructor === Undefined); console.log(([]).constructor === Array); console.log((function() {}).constructor === Function); console.log(({}).constructor === Object);</code></pre><p>（这里依然抛开null和undefined）乍一看，constructor似乎完全可以应对基本数据类型和引用数据类型，都能检测出数据类型，事实上并不是如此，来看看为什么：</p><pre><code> function Fn(){}; Fn.prototype=new Array(); var f=new Fn(); console.log(f.constructor===Fn); console.log(f.constructor===Array);</code></pre><p>我声明了一个构造函数，并且把他的原型指向了Array的原型，所以这种情况下，constructor也显得力不从心了。<br>看到这里，是不是觉得绝望了。没关系，终极解决办法就是第四种办法，看过jQuery源码的人都知道，jQuery实际上就是采用这个方法进行数据类型检测的。</p><h3 id="4-Object-prototype-toString-call"><a href="#4-Object-prototype-toString-call" class="headerlink" title="4. Object.prototype.toString.call()"></a>4. Object.prototype.toString.call()</h3><pre><code>var a = Object.prototype.toString; console.log(a.call(&quot;aaa&quot;)); console.log(a.call(1)); console.log(a.call(true)); console.log(a.call(null)); console.log(a.call(undefined)); console.log(a.call([])); console.log(a.call(function() {})); console.log(a.call({})); </code></pre><p>可以看到，所有的数据类型，这个办法都可以判断出来。那就有人质疑了，假如我把他的原型改动一下呢？如你所愿，我们看一下：</p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JS </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
+      <title>JS中this五种情况的综合梳理</title>
+      <link href="/2020/05/29/js-zhong-this-wu-chong-qing-kuang-de-zong-he-shu-li/"/>
+      <url>/2020/05/29/js-zhong-this-wu-chong-qing-kuang-de-zong-he-shu-li/</url>
+      
+        <content type="html"><![CDATA[<h1 id="javaScript之this的五种情况"><a href="#javaScript之this的五种情况" class="headerlink" title="javaScript之this的五种情况"></a>javaScript之this的五种情况</h1><p>this一直是JavaScript研究的难题，特别是在笔试和面试中的各种程序分析问题中，也常常会被问到。下面来看一看this被运用的五中情况：</p><h3 id="（1）-纯粹的函数调用"><a href="#（1）-纯粹的函数调用" class="headerlink" title="（1） 纯粹的函数调用"></a>（1） 纯粹的函数调用</h3><pre><code>函数最普通用法，此时属于全局调用，函数内this指向全局对象window。</code></pre><h5 id="示例一："><a href="#示例一：" class="headerlink" title="示例一："></a>示例一：</h5><pre><code>var x=20;    function test(){      var x = 10;      console.log(this.x)}// 输出：20，因为函数test执行环境为window。</code></pre><h5 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h5><pre><code>var x=20;  function test(){      this. x = 10;      console.log(this.x)}test()console.log(x); // 输出：// 10// 10</code></pre><p>由于test函数内部this指向window，所以第3行代码修改了x的值。</p><h3 id="（2）-作为对象的方法使用"><a href="#（2）-作为对象的方法使用" class="headerlink" title="（2） 作为对象的方法使用"></a>（2） 作为对象的方法使用</h3><p>函数作为某个对象的方法，此事this指向该对象。</p><pre><code>function text(){console.log(this.x)}var obj = {}; obj.x = 10; obj.out = text; obj.out()// 输出： 10</code></pre><h4 id="（3）构造函数生成实例对象"><a href="#（3）构造函数生成实例对象" class="headerlink" title="（3）构造函数生成实例对象"></a>（3）构造函数生成实例对象</h4><p>作为构造函数使用时，this指向该对象新创建的实例。</p><pre><code>var x = 2; function text(){this.x =1; }var inst = new text(); console.log(inst.x); //输出： 1</code></pre><h3 id="（4）使用apply"><a href="#（4）使用apply" class="headerlink" title="（4）使用apply"></a>（4）使用apply</h3><p>apply()方法是改变函数内部this的值，若为空默认是指向全局对象window。</p><pre><code>var x = 2; 　　function test(){ 　　　console.log (this.x); 　　} 　　var obj={}; 　　obj.x = 1; 　　obj.m = test; obj.m.apply(); obj.m .apply (obj); // 输出：// 2// 1</code></pre><p>第8行代码将函数内部的this指向window，故输出为2。第9行代码等价于obj.m()。因为作为对象方法的函数其内部this就指向该对象。</p><h3 id="（5）事件处理程序中的this"><a href="#（5）事件处理程序中的this" class="headerlink" title="（5）事件处理程序中的this"></a>（5）事件处理程序中的this</h3><p>在DOM级事件处理程序中this指向触发事件的元素，而对于IE事件来说，this指向全局对象window。</p><pre><code>HTML:&lt;input id=&quot;myinput&quot; type=&quot;text&quot; value=&quot;javascript中onclick中的this&quot; onclick=&quot; test(this); &quot;/&gt;javaScript:function test(obj){     alert(obj); //[object HTMLInputElement]     alert(obj.id); //myinput     alert(obj.value); //javascript中onclick中的this }</code></pre><p>还有闭包中的this是指向window的，掌握以上几种运用方法，相信你可以所向睥睨。</p><p><strong>箭头函数中的没有自身的THIS，所用到的THIS就是其上下文中的THIS</strong></p>]]></content>
+      
+      
+      <categories>
+          
+          <category> JS </category>
+          
+      </categories>
+      
+      
+    </entry>
+    
+    
+    
+    <entry>
       <title>基本与引用数据类型的区别</title>
       <link href="/2020/05/24/ji-ben-yu-yin-yong-shu-ju-lei-xing-de-qu-bie/"/>
       <url>/2020/05/24/ji-ben-yu-yin-yong-shu-ju-lei-xing-de-qu-bie/</url>

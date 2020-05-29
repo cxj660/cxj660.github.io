@@ -4,7 +4,7 @@
 
 <head>
     <meta charset="utf-8">
-    <meta name="keywords" content="基本与引用数据类型的区别, 米西米西">
+    <meta name="keywords" content="JS中this五种情况的综合梳理, 米西米西">
     <meta name="description" content="">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
@@ -16,7 +16,7 @@
     <!-- Global site tag (gtag.js) - Google Analytics -->
 
 
-    <title>基本与引用数据类型的区别 | 米西米西</title>
+    <title>JS中this五种情况的综合梳理 | 米西米西</title>
     <link rel="icon" type="image/png" href="/medias/logo.png">
 
     <link rel="stylesheet" type="text/css" href="/libs/awesome/css/all.css">
@@ -308,12 +308,12 @@
 
 
 
-<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/0.jpg')">
+<div class="bg-cover pd-header post-cover" style="background-image: url('/medias/featureimages/16.jpg')">
     <div class="container" style="right: 0px;left: 0px;">
         <div class="row">
             <div class="col s12 m12 l12">
                 <div class="brand">
-                    <h1 class="description center-align post-title">基本与引用数据类型的区别</h1>
+                    <h1 class="description center-align post-title">JS中this五种情况的综合梳理</h1>
                 </div>
             </div>
         </div>
@@ -451,21 +451,21 @@
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-minus fa-fw"></i>发布日期:&nbsp;&nbsp;
-                    2020-05-24
+                    2020-05-29
                 </div>
                 
 
                 
                 <div class="post-date info-break-policy">
                     <i class="far fa-calendar-check fa-fw"></i>更新日期:&nbsp;&nbsp;
-                    2020-05-24
+                    2020-05-29
                 </div>
                 
 
                 
                 <div class="info-break-policy">
                     <i class="far fa-file-word fa-fw"></i>文章字数:&nbsp;&nbsp;
-                    1.3k
+                    505
                 </div>
                 
 
@@ -477,35 +477,69 @@
         <hr class="clearfix">
         <div class="card-content article-card-content">
             <div id="articleContent">
-                <h4 id="1、基本数据类型和引用数据类型"><a href="#1、基本数据类型和引用数据类型" class="headerlink" title="1、基本数据类型和引用数据类型"></a>1、基本数据类型和引用数据类型</h4><p>　　ECMAScript包括两个不同类型的值：基本数据类型和引用数据类型。</p>
-<p>　　基本数据类型指的是简单的数据段，引用数据类型指的是有多个值构成的对象。</p>
-<p>　　当我们把变量赋值给一个变量时，解析器首先要确认的就是这个值是基本类型值还是引用类型值。</p>
-<h4 id="2、常见的基本数据类型："><a href="#2、常见的基本数据类型：" class="headerlink" title="2、常见的基本数据类型："></a>2、常见的基本数据类型：</h4><p>　　Number、String 、Boolean、Null和Undefined。基本数据类型是按值访问的，因为可以直接操作保存在变量中的实际值。示例：</p>
-<pre><code>　　var a = 10; 
-　　var b = a; 
-　　b = 20; 
-　　console.log(a); // 10值</code></pre><p>　　上面，b获取的是a值得一份拷贝，虽然，两个变量的值相等，但是两个变量保存了两个不同的基本数据类型值。</p>
-<p>　　<strong>b只是保存了a复制的一个副本。所以，b的改变，对a没有影响。</strong></p>
-<p>　　下图演示了这种基本数据类型赋值的过程：</p>
-<p><img src="https://img-blog.csdnimg.cn/2020052415210460.bmp?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NDc2Nzc5,size_16,color_FFFFFF,t_70" alt="基本数据类型赋值的过程"></p>
-<h4 id="3、引用类型数据："><a href="#3、引用类型数据：" class="headerlink" title="3、引用类型数据："></a>3、引用类型数据：</h4><p>　　也就是对象类型Object type，比如：Object 、Array 、Function 、Data等。</p>
-<p>　　<strong>javascript的引用数据类型是保存在堆内存中的对象。</strong></p>
-<p>　　与其他语言的不同是，你不可以直接访问堆内存空间中的位置和操作堆内存空间。只能操作对象在栈内存中的引用地址。</p>
-<p>　　所以，引用类型数据在栈内存中保存的实际上是对象在堆内存中的引用地址。通过这个引用地址可以快速查找到保存中堆内存中的对象。</p>
-<pre><code>　　var obj1 = new Object(); 
-　　var obj2 = obj1; 
-　　obj2.name = &quot;我有名字了&quot;; 
-　　console.log(obj1.name); // 我有名字了</code></pre><p>　　说明这两个引用数据类型指向了同一个堆内存对象。obj1赋值给onj2，实际上这个堆内存对象在栈内存的引用地址复制了一份给了obj2，</p>
-<p>　　但是实际上他们共同指向了同一个堆内存对象。实际上改变的是堆内存对象。</p>
-<p>　　下面我们来演示这个引用数据类型赋值过程：</p>
-<p><img src="https://img-blog.csdnimg.cn/20200524152104308.bmp?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FxXzQ0NDc2Nzc5,size_16,color_FFFFFF,t_70" alt="引用数据类型赋值过程"></p>
-<h4 id="4、总结区别"><a href="#4、总结区别" class="headerlink" title="4、总结区别"></a>4、总结区别</h4><p>　　<strong>a 声明变量时不同的内存分配：</strong>　</p>
-<p>　　 1. <strong>原始值</strong>：存储在栈（stack）中的简单数据段，也就是说，它们的值直接存储在变量访问的位置。</p>
-<p>　　　　这是因为这些 原始类型占据的空间是固定的，所以可将他们存储在较小的内存区域 – 栈中。这样存储便于迅速查寻变量的值。</p>
-<p>　　 2. <strong>引用值</strong>：存储在堆（heap）中的对象，也就是说，存储在变量处的值是一个指针（point），指向存储对象的内存地址。</p>
-<p>　　　  这是因为：引用值的大小会改变，所以不能把它放在栈中，否则会降低变量查寻的速度。相反，放在变量的栈空间中的值是该对象存储在堆中的地址。</p>
-<p>　　　  地址的大小是固定的，所以把它存储在栈中对变量性能无任何负面影响。</p>
-<p>　　<strong>b 不同的内存分配机制也带来了不同的访问机制</strong><br>　　　<br>　　1）在javascript中是不允许直接访问保存在堆内存中的对象的，所以在访问一个对象时，<br>　　　　<strong><em>首先得到的是这个对象在堆内存中的地址</em></strong>，然后再按照这个地址去获得这个对象中的值，这就是传说中的按引用访问。<br>　　2）而原始类型的值则是可以直接访问到的。<br>　　<br>　　<strong>c 复制变量时的不同</strong><br>　　<br>　　1）原始值：在将一个保存着原始值的变量复制给另一个变量时，会将原始值的副本赋值给新变量，此后这两个变量是完全独立的，他们只是拥有相同的value而已。<br>　　2）引用值：在将一个保存着对象内存地址的变量复制给另一个变量时，<strong><em>会把这个内存地址赋值给新变量</em></strong>，<br>　　　　也就是说这两个变量都指向了堆内存中的同一个对象，他们中任何一个作出的改变都会反映在另一个身上。<br>　　　　（这里要理解的一点就是，复制对象时并不会在堆内存中新生成一个一模一样的对象，只是多了一个保存指向这个对象指针的变量罢了）。多了一个指针<br>　<br>　　<strong>d 参数传递的不同（把实参复制给形参的过程）</strong><br>　　<br>　　首先我们应该明确一点：ECMAScript中所有函数的参数都是按值来传递的。<br>　　但是为什么涉及到原始类型与引用类型的值时仍然有区别呢？还不就是因为内存分配时的差别。 　<br>　　1）原始值：只是把变量里的值传递给参数，之后参数和这个变量互不影响。<br>　　2）引用值：对象变量它里面的值是这个对象在堆内存中的内存地址，这一点你要时刻铭记在心！<br>　　　　因此<strong><em>它传递的值也就是这个内存地址，这也就是为什么函数内部对这个参数的修改会体现在外部的原因了，因为它们都指向同一个对象。</em></strong></p>
+                <h1 id="javaScript之this的五种情况"><a href="#javaScript之this的五种情况" class="headerlink" title="javaScript之this的五种情况"></a>javaScript之this的五种情况</h1><p>this一直是JavaScript研究的难题，特别是在笔试和面试中的各种程序分析问题中，也常常会被问到。下面来看一看this被运用的五中情况：</p>
+<h3 id="（1）-纯粹的函数调用"><a href="#（1）-纯粹的函数调用" class="headerlink" title="（1） 纯粹的函数调用"></a>（1） 纯粹的函数调用</h3><pre><code>函数最普通用法，此时属于全局调用，函数内this指向全局对象window。</code></pre><h5 id="示例一："><a href="#示例一：" class="headerlink" title="示例一："></a>示例一：</h5><pre><code>var x=20; 
+   function test(){
+
+      var x = 10;
+      console.log(this.x)
+
+}
+// 输出：20，因为函数test执行环境为window。</code></pre><h5 id="示例2："><a href="#示例2：" class="headerlink" title="示例2："></a>示例2：</h5><pre><code>var x=20; 
+ function test(){
+
+      this. x = 10;
+      console.log(this.x)
+
+}
+test()
+console.log(x); 
+
+// 输出：
+// 10
+// 10</code></pre><p>由于test函数内部this指向window，所以第3行代码修改了x的值。</p>
+<h3 id="（2）-作为对象的方法使用"><a href="#（2）-作为对象的方法使用" class="headerlink" title="（2） 作为对象的方法使用"></a>（2） 作为对象的方法使用</h3><p>函数作为某个对象的方法，此事this指向该对象。</p>
+<pre><code>function text(){
+console.log(this.x)
+}
+var obj = {}; 
+obj.x = 10; 
+obj.out = text; 
+obj.out()
+
+// 输出： 10</code></pre><h4 id="（3）构造函数生成实例对象"><a href="#（3）构造函数生成实例对象" class="headerlink" title="（3）构造函数生成实例对象"></a>（3）构造函数生成实例对象</h4><p>作为构造函数使用时，this指向该对象新创建的实例。</p>
+<pre><code>var x = 2; 
+function text(){
+this.x =1; 
+}
+var inst = new text(); 
+console.log(inst.x); 
+
+//输出： 1</code></pre><h3 id="（4）使用apply"><a href="#（4）使用apply" class="headerlink" title="（4）使用apply"></a>（4）使用apply</h3><p>apply()方法是改变函数内部this的值，若为空默认是指向全局对象window。</p>
+<pre><code>var x = 2; 
+　　function test(){ 
+　　　console.log (this.x); 
+　　} 
+　　var obj={}; 
+　　obj.x = 1; 
+　　obj.m = test; 
+obj.m.apply(); 
+obj.m .apply (obj); 
+
+// 输出：
+// 2
+// 1</code></pre><p>第8行代码将函数内部的this指向window，故输出为2。第9行代码等价于obj.m()。因为作为对象方法的函数其内部this就指向该对象。</p>
+<h3 id="（5）事件处理程序中的this"><a href="#（5）事件处理程序中的this" class="headerlink" title="（5）事件处理程序中的this"></a>（5）事件处理程序中的this</h3><p>在DOM级事件处理程序中this指向触发事件的元素，而对于IE事件来说，this指向全局对象window。</p>
+<pre><code>HTML:
+&lt;input id=&quot;myinput&quot; type=&quot;text&quot; value=&quot;javascript中onclick中的this&quot; onclick=&quot; test(this); &quot;/&gt;
+javaScript:
+
+function test(obj){ 
+    alert(obj); //[object HTMLInputElement] 
+    alert(obj.id); //myinput 
+    alert(obj.value); //javascript中onclick中的this 
+}</code></pre><p>还有闭包中的this是指向window的，掌握以上几种运用方法，相信你可以所向睥睨。</p>
+<p><strong>箭头函数中的没有自身的THIS，所用到的THIS就是其上下文中的THIS</strong></p>
 
             </div>
             <hr/>
@@ -531,7 +565,7 @@
                     </i>
                 </span>
                 <span class="reprint-info">
-                    <a href="http://cxj660.github.io/2020/05/24/ji-ben-yu-yin-yong-shu-ju-lei-xing-de-qu-bie/">http://cxj660.github.io/2020/05/24/ji-ben-yu-yin-yong-shu-ju-lei-xing-de-qu-bie/</a>
+                    <a href="http://cxj660.github.io/2020/05/29/js-zhong-this-wu-chong-qing-kuang-de-zong-he-shu-li/">http://cxj660.github.io/2020/05/29/js-zhong-this-wu-chong-qing-kuang-de-zong-he-shu-li/</a>
                 </span>
             </div>
             <div class="reprint__notice">
@@ -1001,20 +1035,21 @@
             <div class="article-badge left-badge text-color">
                 <i class="fas fa-chevron-left"></i>&nbsp;上一篇</div>
             <div class="card">
-                <a href="/2020/05/29/js-zhong-this-wu-chong-qing-kuang-de-zong-he-shu-li/">
+                <a href="/2020/05/29/js-zhong-de-si-da-shu-ju-lei-xing-jian-ce-fang-an/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/16.jpg" class="responsive-img" alt="JS中this五种情况的综合梳理">
+                        <img src="/medias/featureimages/6.jpg" class="responsive-img" alt="JS四大数据类型检测">
                         
-                        <span class="card-title">JS中this五种情况的综合梳理</span>
+                        <span class="card-title">JS四大数据类型检测</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            javaScript之this的五种情况this一直是JavaScript研究的难题，特别是在笔试和面试中的各种程序分析问题中，也常常会被问到。下面来看一看this被运用的五中情况：
-（1） 纯粹的函数调用函数最普通用法，此时属于全局调用，
+                            NaN 的数据类型：not a number 。是数字类型但是不是数字typeof NaN ===&gt;   number
+1.typeof console.log(typeof &quot;&quot;);
+ console.log(t
                         
                     </div>
                     <div class="publish-info">
@@ -1043,21 +1078,21 @@
                 下一篇&nbsp;<i class="fas fa-chevron-right"></i>
             </div>
             <div class="card">
-                <a href="/2020/05/24/js-zhong-de-ba-da-shu-ju-lei-xing/">
+                <a href="/2020/05/24/ji-ben-yu-yin-yong-shu-ju-lei-xing-de-qu-bie/">
                     <div class="card-image">
                         
                         
-                        <img src="/medias/featureimages/22.jpg" class="responsive-img" alt="JS中的八大数据类型">
+                        <img src="/medias/featureimages/0.jpg" class="responsive-img" alt="基本与引用数据类型的区别">
                         
-                        <span class="card-title">JS中的八大数据类型</span>
+                        <span class="card-title">基本与引用数据类型的区别</span>
                     </div>
                 </a>
                 <div class="card-content article-content">
                     <div class="summary block-with-text">
                         
-                            正文js中的数据类型，包括
-&amp;nbsp; &amp;nbsp;**基本数据类型**（Number, String, Boolean, Undefined, Null）
-&amp;nbsp; &amp;nbsp;**复杂（引用）数据类
+                            1、基本数据类型和引用数据类型　　ECMAScript包括两个不同类型的值：基本数据类型和引用数据类型。
+　　基本数据类型指的是简单的数据段，引用数据类型指的是有多个值构成的对象。
+　　当我们把变量赋值给一个变量时，解析器首先要确认的就是这
                         
                     </div>
                     <div class="publish-info">
